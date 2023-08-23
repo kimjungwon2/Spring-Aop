@@ -7,6 +7,9 @@ import hello.aop.order.OrderService;
 import hello.aop.order.aop.AspectV1;
 import hello.aop.order.aop.AspectV2;
 import hello.aop.order.aop.AspectV4Pointcut;
+import hello.aop.order.aop.AspectV5Order;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +20,15 @@ import org.springframework.context.annotation.Import;
 @Slf4j
 @SpringBootTest
 //@Import(AspectV1.class)
-@Import(AspectV4Pointcut.class)
+//@Import(AspectV4Pointcut.class)
+@Import({AspectV5Order.LogAspect.class, AspectV5Order.TxAspect.class})
 public class AopTest {
 
     @Autowired
     OrderService orderService;
     @Autowired
     OrderRepository orderRepository;
+
     @Test
     void aopInfo() {
         log.info("isAopProxy, orderService={}",
