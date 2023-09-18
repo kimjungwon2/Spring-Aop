@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 
 @Slf4j
 @Import(ThisTargetTest.ThisTargetAspect.class)
-@SpringBootTest
+@SpringBootTest(properties = "spring.aop.proxy-target-class=true") // CGLIB
 public class ThisTargetTest {
 
     @Autowired
@@ -29,11 +29,33 @@ public class ThisTargetTest {
     @Aspect
     static class ThisTargetAspect {
 
+        //부모 타입 허용
         @Around("this(hello.aop.member.MemberService)")
         public Object doThisInterface(ProceedingJoinPoint joinPoint) throws Throwable {
             log.info("[this-interface] {}",joinPoint.getSignature());
             return joinPoint.proceed();
         }
+
+        @Around("target(hello.aop.member.MemberService)")
+        public Object doTargetInterface(ProceedingJoinPoint joinPoint) throws Throwable {
+            log.info("[target-interface] {}",joinPoint.getSignature());
+            return joinPoint.proceed();
+        }
+
+
+        @Around("this(hello.aop.member.MemberServiceImpl)")
+        public Object doThis(ProceedingJoinPoint joinPoint) throws Throwable {
+            log.info("[this-impl] {}",joinPoint.getSignature());
+            return joinPoint.proceed();
+        }
+
+
+        @Around("target(hello.aop.member.MemberServiceImpl)")
+        public Object doTarget(ProceedingJoinPoint joinPoint) throws Throwable {
+            log.info("[target-impl] {}",joinPoint.getSignature());
+            return joinPoint.proceed();
+        }
+
     }
 
 }
