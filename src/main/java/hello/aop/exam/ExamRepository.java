@@ -9,8 +9,7 @@ public class ExamRepository {
 
     private static int seq = 0;
 
-    @Trace
-    @Retry(4)
+
     public String save(String itemId){
         seq++;
 
