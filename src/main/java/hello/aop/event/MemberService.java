@@ -15,7 +15,9 @@ public class MemberService {
 
     @Transactional
     public void signUp() {
-        applicationEventPublisher.publishEvent("welcome"); // 이벤트 발행 즉시 리스너 동작
+        Member savedMember = memberRepository.save(dto.toEntity());
+        SignUpMessage signUpMessage = new SignUpMessage("welcome", savedMember.getName());
+        applicationEventPublisher.publishEvent(signUpMessage);
         log.info("-- signUp end --");
     }
 }

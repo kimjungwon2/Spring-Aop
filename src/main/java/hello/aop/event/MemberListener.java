@@ -9,8 +9,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MemberListener {
 
-    @EventListener
+    @TransactionalEventListener(phase = TranscationPhase.AFTER_COMMIT)
     public void listener(String message) {
         log.info(message);
     }
+
+
 }
