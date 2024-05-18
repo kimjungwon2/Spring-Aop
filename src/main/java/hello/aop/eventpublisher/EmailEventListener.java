@@ -1,6 +1,8 @@
 package hello.aop.eventpublisher;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,9 +11,10 @@ public class EmailEventListener {
 
     private final SesService sesService;
 
+    @Async
     @EventListener
     public void onEmailSendEventHandler(EmailSendEvent event) {
-        // 이메일 전송
+        // Send email
         sesService.sendEmail(event.getEmail());
     }
 }
