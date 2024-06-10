@@ -11,8 +11,6 @@ public class ExamService {
 
     private final ExamRepository examRepository;
 
-    @Trace
-    @Retry(4)
     public void request(String itemId){
         examRepository.save(itemId);
     }
