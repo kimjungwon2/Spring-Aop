@@ -38,4 +38,16 @@ public class ExecutionTest {
 
       //then
     }
+
+    @DisplayName("")
+    @Test
+    void allMatch(){
+      //given
+
+        pointcut.setExpression("execution(* *(..))");
+      //when
+
+      //then
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+    }
 }
