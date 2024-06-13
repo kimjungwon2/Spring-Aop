@@ -50,4 +50,59 @@ public class ExecutionTest {
       //then
         assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
     }
+
+    @DisplayName("")
+    @Test
+    void nameMatch(){
+        //given
+
+        pointcut.setExpression("execution(* hello(..))");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+    }
+
+    @DisplayName("")
+    @Test
+    void nameMatchStar1(){
+        //given
+
+        pointcut.setExpression("execution(* hello(..))");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+    }
+
+    @DisplayName("")
+    @Test
+    void nameMatchStar2(){
+        //given
+
+        pointcut.setExpression("execution(* *el*(..))");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+    }
+
+    @DisplayName("")
+    @Test
+    void nameMatchStar3(){
+        //given
+
+        pointcut.setExpression("execution(* nono(..))");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isFalse();
+    }
+
+    @DisplayName("")
+    @Test
+    void packageExactMatch1(){
+        //given
+
+        pointcut.setExpression("execution(* hello.aop.member.MemberServiceImpl.hello(..))");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+    }
+
+    @DisplayName("")
+    @Test
+    void packageExactFalse(){
+        //given
+
+        pointcut.setExpression("execution(* hello.aop.member..*.*(..))");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+    }
+
 }
