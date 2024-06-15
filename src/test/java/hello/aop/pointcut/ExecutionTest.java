@@ -137,4 +137,13 @@ public class ExecutionTest {
         Method internalMethod = MemberServiceImpl.class.getMethod("internal", String.class);
         assertThat(pointcut.matches(internalMethod, MemberServiceImpl.class)).isFalse();
     }
+
+
+    @DisplayName("")
+    @Test
+    void argsMatch(){
+        pointcut.setExpression("execution(* *(String))");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isFalse();
+    }
+
 }
