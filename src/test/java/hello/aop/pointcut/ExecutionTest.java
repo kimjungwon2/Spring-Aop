@@ -139,11 +139,19 @@ public class ExecutionTest {
     }
 
 
-    @DisplayName("")
+    @DisplayName("파라미터가 String")
     @Test
     void argsMatch(){
         pointcut.setExpression("execution(* *(String))");
         assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isFalse();
     }
+
+    @DisplayName("파라미터가 없어야 한다.")
+    @Test
+    void argsMatchNoArgs(){
+        pointcut.setExpression("execution(* *())");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isFalse();
+    }
+
 
 }
