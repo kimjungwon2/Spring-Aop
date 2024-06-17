@@ -33,7 +33,7 @@ public class ArgsTest {
         assertThat(pointcut("args(Object)")
                 .matches(helloMethod, MemberServiceImpl.class)).isTrue();
         assertThat(pointcut("args()")
-                .matches(helloMethod, MemberServiceImpl.class)).isTrue();
+                .matches(helloMethod, MemberServiceImpl.class)).isFalse();
         assertThat(pointcut("args(..)")
                 .matches(helloMethod, MemberServiceImpl.class)).isTrue();
         assertThat(pointcut("args(*)")
