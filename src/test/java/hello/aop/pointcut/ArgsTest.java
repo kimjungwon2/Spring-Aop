@@ -42,4 +42,29 @@ public class ArgsTest {
                 .matches(helloMethod, MemberServiceImpl.class)).isTrue();
     }
 
+
+    //execution:메서드의 시그니처로 판단. (정적)
+    //args(java.io.Serializable):런타임에 전달된 인수로 판단. (동적)
+    @Test
+    void argsVsExecution(){
+        //Args
+        assertThat(pointcut("args(String)")
+                .matches(helloMethod, MemberServiceImpl.class)).isTrue();
+        //String => Serializable 인터페이스를 구현.
+        assertThat(pointcut("args(java.io.Serializable)")
+                .matches(helloMethod, MemberServiceImpl.class)).isTrue();
+        assertThat(pointcut("args(Object)")
+                .matches(helloMethod, MemberServiceImpl.class)).isTrue();
+
+
+        //Execution: 정확하게 매칭이 되야한다.
+        assertThat(pointcut("execution(* *(String))")
+                .matches(helloMethod, MemberServiceImpl.class)).isTrue();
+        assertThat(pointcut("execution(* *(java.io.Serializable))")
+                .matches(helloMethod, MemberServiceImpl.class)).isFalse(); // 매칭 실패
+        assertThat(pointcut("execution(* *(Object))")
+                .matches(helloMethod, MemberServiceImpl.class)).isFalse(); // 매칭 실패
+
+    }
+
 }
