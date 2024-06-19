@@ -37,5 +37,11 @@ public class ParameterTest {
             log.info("[logArgs1]{}, args={}", joinPoint.getSignature(), arg1);
             return joinPoint.proceed();
         }
+
+        @Around("allMember() && args(arg,..)")
+        public Object logArgs2(ProceedingJoinPoint joinPoint, Object arg) throws Throwable {
+            log.info("[logArgs2]{}, args={}", joinPoint.getSignature(), arg);
+            return joinPoint.proceed();
+        }
     }
 }
