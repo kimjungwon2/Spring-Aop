@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 
 @Slf4j
 @Import(ThisTargetTest.ThisTargetAspect.class)
-@SpringBootTest
+@SpringBootTest(properties = "spring.aop.proxy-target-class=true") // CGLIB
 public class ThisTargetTest {
 
     @Autowired
