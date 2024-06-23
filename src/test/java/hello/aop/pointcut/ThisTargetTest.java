@@ -36,5 +36,27 @@ public class ThisTargetTest {
             log.info("[this-interface] {}", joinPoint.getSignature());
             return joinPoint.proceed();
         }
+
+
+        @Around("target(hello.aop.member.MemberService)")
+        public Object doTargetInterface(ProceedingJoinPoint joinPoint) throws Throwable {
+            log.info("[this-interface] {}", joinPoint.getSignature());
+            return joinPoint.proceed();
+        }
+
+
+        @Around("this(hello.aop.member.MemberServiceImpl)")
+        public Object doThis(ProceedingJoinPoint joinPoint) throws Throwable {
+            log.info("[this-impl] {}", joinPoint.getSignature());
+            return joinPoint.proceed();
+        }
+
+
+        @Around("target(hello.aop.member.MemberServiceImpl)")
+        public Object doTarget(ProceedingJoinPoint joinPoint) throws Throwable {
+            log.info("[target-impl] {}", joinPoint.getSignature());
+            return joinPoint.proceed();
+        }
+
     }
 }
